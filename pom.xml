@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.app.spring</groupId>
-	<artifactId>SpringHibernateInt</artifactId>
+	<artifactId>Elibrary</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringHibernateInt Maven Webapp</name>
+	<name>Elibrary Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<!-- Specifying the Versions of Spring, Hiberante, MySQL etc -->
 	<properties>
@@ -106,7 +106,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>SpringHibernateInt</finalName>
+		<finalName>Elibrary</finalName>
 		<plugins>
               <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
