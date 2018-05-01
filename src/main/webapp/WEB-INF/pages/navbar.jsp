@@ -4,10 +4,10 @@
       <a class="navbar-brand" href="#">My eLibrary</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="/MavenElibrary/">Home</a></li>
+      <li><a href="/Elibrary">Home</a></li>
       <li><a href="mybook.jsp">My Books</a></li>
       <li><a href="index.jsp">Browse</a></li>
-      <li><a href="loginForm">Log In</a></li>
+      <li><a href="loginForm">Sign In</a></li>
       <li><a href="registerUser">Sign Up</a></li>
     </ul>
     <form class="navbar-form navbar-left" action="/action_page.php">

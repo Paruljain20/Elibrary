@@ -1,25 +1,33 @@
 package com.app.elib.controller;
 
+import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.elib.bean.User;
 import com.app.elib.service.UserService;
 import com.app.elib.service.UserServiceImpl;
 
+
 @Controller
+@SessionAttributes("userSession")
 public class UserController {
 
 	@Autowired
@@ -62,30 +70,35 @@ public class UserController {
 		return model;
 	}
 	
+	//This method is used to load login form
 	@RequestMapping("/loginForm")
-	public ModelAndView showLoginForm(ModelAndView model){
+	public ModelAndView showLoginForm(@ModelAttribute("userSession") User user ,ModelAndView model){
 		model.setViewName("login");
 		return model;
 	}
 	
+	//This method is used to login process
 	@RequestMapping(value="/loginUser", method=RequestMethod.POST)
-	public ModelAndView loginUser(@ModelAttribute User user){
+	public ModelAndView loginUser(@ModelAttribute("userSession") User user){
 		User result = null;
-		HttpHeaders httpHeaders = new HttpHeaders();
-		Map<String, String> userData = new HashMap<>();
+		ModelAndView model = new ModelAndView();
 		try {
 		   result = userService.loginUser(user);
-		   userData.put("name",result.getName());
-		   userData.put("email",result.getEmail());
-		   httpHeaders.setContentType(MediaType.TEXT_PLAIN);
+		   if(result != null){
+			   model.addObject("userSession", user);
+		   model.setViewName("userProfile");
+		   }
+		   else{
+			   model.setViewName("login");
+			   model.addObject("message", "Username or Password is wrong!!");
+		   }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if(result != null)
-			return new ModelAndView("userProfile", "userData", userData);
-					
+			return model;
 		else
-			return new ModelAndView("index");
+			return model;
 	}
 	
 }
