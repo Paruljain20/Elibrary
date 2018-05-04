@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,11 +29,16 @@ import com.app.elib.service.UserServiceImpl;
 
 
 @Controller
-@SessionAttributes("userSession")
+/*@SessionAttributes("user")*/
 public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	/*@ModelAttribute("user")
+	public User getUser() {
+		return new User();
+	}*/
 
 	// This method is used to open index page
 	@RequestMapping("/")
@@ -72,21 +79,22 @@ public class UserController {
 	
 	//This method is used to load login form
 	@RequestMapping("/loginForm")
-	public ModelAndView showLoginForm(@ModelAttribute("userSession") User user ,ModelAndView model){
+	public ModelAndView showLoginForm(@ModelAttribute("user") User user ,ModelAndView model){
 		model.setViewName("login");
 		return model;
 	}
 	
 	//This method is used to login process
 	@RequestMapping(value="/loginUser", method=RequestMethod.POST)
-	public ModelAndView loginUser(@ModelAttribute("userSession") User user){
+	public ModelAndView loginUser(@ModelAttribute("user") User user, HttpSession session){
 		User result = null;
 		ModelAndView model = new ModelAndView();
 		try {
 		   result = userService.loginUser(user);
 		   if(result != null){
-			   model.addObject("userSession", user);
+		   //model.addObject("user", result);
 		   model.setViewName("userProfile");
+		   session.setAttribute("user", result);
 		   }
 		   else{
 			   model.setViewName("login");
@@ -101,4 +109,9 @@ public class UserController {
 			return model;
 	}
 	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public ModelAndView logoutUser(@ModelAttribute("logout") User user, HttpSession session){
+		session.invalidate(); 
+		return new ModelAndView("index");
+	}
 }
