@@ -10,5 +10,7 @@ public interface UserDao {
 	
 	public List<User> getAllUsers() throws Exception;
 	
-	public User loginUser(User user) throws Exception; 
+	public User loginUser(User user) throws Exception;
+
+	public boolean validateEmail(String email); 
 }

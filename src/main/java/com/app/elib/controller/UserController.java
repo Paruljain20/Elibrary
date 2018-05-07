@@ -114,4 +114,12 @@ public class UserController {
 		session.invalidate(); 
 		return new ModelAndView("index");
 	}
+	
+	@RequestMapping(value="/validateEmail", method=RequestMethod.GET)
+	public ModelAndView validateEmail(String email){
+		boolean result = userService.validateEmail(email);
+		Map<String, Boolean> data = new HashMap<>();
+		data.put("result", result);
+		return new ModelAndView("register" , "data", data);
+	}
 }

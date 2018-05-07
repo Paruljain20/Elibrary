@@ -31,7 +31,7 @@
 					<fieldset class="form-group">
 						<span><label class="control-label" for="email">Email
 								Address</label> <input class="form-control col-md-4" type="text"
-							name="email" id="email" placeholder="Enter Email Address" /> </span>
+							name="email" id="email" placeholder="Enter Email Address" onkeyup="validateEmail(this.value)"/> </span>
 					</fieldset>
 					<fieldset class="form-group">
 						<span><label class="control-label" for="password">Password</label>
@@ -94,6 +94,20 @@
 			}
 		}
 		
+		function validateEmail(currentEmail){
+			console.log(currentEmail);
+			 $.ajax({
+				type:"GET",
+				url:"validateEmail",
+				data:{email: currentEmail},
+				success:function(data1){
+					 console.log(data1.result);
+					return data1;
+				}
+     
+			});
+     
+		}
 		</script>
 
 </body>

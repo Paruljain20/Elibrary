@@ -11,4 +11,6 @@ public interface UserService {
 	
 	public User loginUser(User user) throws Exception;
 
+	public boolean validateEmail(String email);
+
 }

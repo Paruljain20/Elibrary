@@ -33,5 +33,11 @@ public class UserServiceImpl implements UserService {
 		User result = userDao.loginUser(user);
 		return result;
 	}
+
+	@Override
+	public boolean validateEmail(String email) {
+		boolean result = userDao.validateEmail(email);
+		return result;
+	}
 	
 }

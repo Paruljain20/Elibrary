@@ -35,5 +35,15 @@ public class UserDaoImpl implements UserDao{
 		 return result;
 	}
 
+	@Override
+	public boolean validateEmail(String email) {
+		int result = (int) sessionFactory.getCurrentSession().createQuery("select 1 from User where email = :email")
+				.setString("email", email).uniqueResult();
+		if(result == 1)
+			return false;
+		else
+			return true;
+	}
+
 	
 }
