@@ -37,12 +37,18 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public boolean validateEmail(String email) {
-		int result = (int) sessionFactory.getCurrentSession().createQuery("select 1 from User where email = :email")
+		try{
+		Object result = sessionFactory.getCurrentSession().createQuery("select 1 from User where email = :email")
 				.setString("email", email).uniqueResult();
-		if(result == 1)
+		if(result == null)
 			return false;
 		else
 			return true;
+		}
+		catch(NullPointerException e){
+			e.getMessage();
+			return false;
+		}
 	}
 
 	

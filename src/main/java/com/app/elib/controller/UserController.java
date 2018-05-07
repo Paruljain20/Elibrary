@@ -29,17 +29,11 @@ import com.app.elib.service.UserServiceImpl;
 
 
 @Controller
-/*@SessionAttributes("user")*/
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 	
-	/*@ModelAttribute("user")
-	public User getUser() {
-		return new User();
-	}*/
-
 	// This method is used to open index page
 	@RequestMapping("/")
 	public ModelAndView index(ModelAndView model) {
@@ -115,11 +109,4 @@ public class UserController {
 		return new ModelAndView("index");
 	}
 	
-	@RequestMapping(value="/validateEmail", method=RequestMethod.GET)
-	public ModelAndView validateEmail(String email){
-		boolean result = userService.validateEmail(email);
-		Map<String, Boolean> data = new HashMap<>();
-		data.put("result", result);
-		return new ModelAndView("register" , "data", data);
-	}
 }

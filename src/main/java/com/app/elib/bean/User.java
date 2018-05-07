@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class User {
 	@Id
@@ -14,6 +16,7 @@ public class User {
 	private String name;
 	
 	@Column(unique = true)
+	@JsonView
 	private String email;
 	private String password;
 	private boolean isLibrarian;

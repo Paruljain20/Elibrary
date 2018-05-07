@@ -23,6 +23,7 @@ out.print(user.getName().toUpperCase());
 <input class="btn" type="button" value="Sign Out" onclick="getlogout()" style="float:right; padding:2px 12px"/>
   </div>
   <div class="panel-body">
+  <input class="btn btn-primary" type="button" value="Add Book" onclick=""/>
   </div>
   </div>
 </div>
