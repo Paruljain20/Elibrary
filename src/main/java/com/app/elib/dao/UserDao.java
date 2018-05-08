@@ -13,4 +13,8 @@ public interface UserDao {
 	public User loginUser(User user) throws Exception;
 
 	public boolean validateEmail(String email); 
+	
+	public String getUseremail(String email);
+	 
+	public Integer editUserPassword(String email, String password) throws Exception;
 }

@@ -12,5 +12,9 @@ public interface UserService {
 	public User loginUser(User user) throws Exception;
 
 	public boolean validateEmail(String email);
+	
+	public String getUserEmail(String email);
+	
+	public Integer editUserPassword(String email, String password) throws Exception;
 
 }

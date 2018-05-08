@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -18,12 +20,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.elib.bean.User;
+import com.app.elib.service.EmailService;
 import com.app.elib.service.UserService;
 import com.app.elib.service.UserServiceImpl;
 
@@ -33,6 +38,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private EmailService emailservice;
 	
 	// This method is used to open index page
 	@RequestMapping("/")
@@ -109,4 +117,57 @@ public class UserController {
 		return new ModelAndView("index");
 	}
 	
+	@RequestMapping(value="/forgetPassword", method=RequestMethod.GET)
+	public ModelAndView forgetPassword(@ModelAttribute("user") User user, ModelAndView model){
+		model.setViewName("forgetPassword");
+		return model;
+	}
+	
+	@RequestMapping(value="/resetPassword", method=RequestMethod.POST)
+	public ModelAndView resetPassword(@ModelAttribute("user") User user,  ModelAndView model){
+		String userEmail = userService.getUserEmail(user.getEmail());
+		if(userEmail != null){
+			String to = "paruljainsvn49@gmail.com";
+			String subject = "Password Reset";
+			String link = "http://localhost:8080/Elibrary/formResetPassword?email="+userEmail;
+			String mailBody = "Hello, This email is to let you know that someone, probably you, recently asked us to reset the password on the elibrary account belonging to " +userEmail +" " + link;
+			emailservice.sendMail(userEmail, to, subject, mailBody);
+			String message = "We have sent an email to your email-id, check your email to reset your password.";
+			model.addObject("message", message);
+			model.addObject("email", userEmail);
+			model.setViewName("resetMessage");
+		}else{
+			String message = "Please check your email id";
+			model.addObject("message", message);
+			model.setViewName("forgetPassword");
+		}
+		
+		return model;
+	}
+	
+	@RequestMapping(value="/formResetPassword", method=RequestMethod.GET)
+	public ModelAndView resetUserPassword(@RequestParam(value="email") String email, @ModelAttribute("user") User user, ModelAndView model){
+		model.addObject("email", email);
+		model.setViewName("resetPassword");
+		return model;
+	}
+	
+	@RequestMapping(value="/doResetPassword", method=RequestMethod.POST)
+	public ModelAndView editUserPassword(@ModelAttribute("user") User user, ModelAndView model){
+		Integer result;
+		try {
+			result = userService.editUserPassword(user.getEmail(), user.getPassword());
+			if(result > 0){
+				model.addObject("successMsg", "Your Password Reset Successfully !!");
+				model.setViewName("resetMessage");
+			}
+			else{
+				model.addObject("errorMsg", "Please try again");
+				model.setViewName("resetPassword");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
 }
