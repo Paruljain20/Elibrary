@@ -54,7 +54,7 @@
 							onkeyup="confirmPassword('cpassword')" required="required" /> </span>
 					</fieldset>
 					<div name="errorMessage">
-						<p></p>
+						<p style="font-style: italic; color: red;"></p>
 					</div>
 					<div class="form-group row">
 						<div class="col-md-4">
@@ -85,6 +85,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("p").hide();
+			$('#emailErrorLabel').hide();
 		});
 
 		function confirmPassword(fieldname) {
@@ -107,27 +108,30 @@
 			var formData = {
 				email : currentEmail
 			}
-			var label = null;
-			console.log(currentEmail);
-			$.ajax({
-				type : "POST",
-				url : "validateEmail",
-				data : JSON.stringify(formData),
-				dataType : 'json',
-				contentType : "application/json",
-				success : function(data) {
-					if (data.code == "200") {
-						$('#emailErrorLabel').text("");
-					} else {
-						$('#emailErrorLabel').text(data.msg);
-					}
+			if (currentEmail != "") {
+				$.ajax({
+					type : "POST",
+					url : "validateEmail",
+					data : JSON.stringify(formData),
+					dataType : 'json',
+					contentType : "application/json",
+					success : function(data) {
+						if (data.code == "200") {
+							$('#emailErrorLabel').hide();
+						} else {
+							$('#emailErrorLabel').show();
+							$('#emailErrorLabel').text(data.msg);
+						}
 
-					return data;
-				},
-				error : function() {
-					alert("error");
-				}
-			});
+						return data;
+					},
+					error : function() {
+						alert("error");
+					}
+				});
+			} else {
+				$('#emailErrorLabel').hide();
+			}
 		}
 	</script>
 
