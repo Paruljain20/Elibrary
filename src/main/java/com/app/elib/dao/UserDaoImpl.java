@@ -35,5 +35,43 @@ public class UserDaoImpl implements UserDao{
 		 return result;
 	}
 
+	@Override
+	public boolean validateEmail(String email) {
+		try{
+		Object result = sessionFactory.getCurrentSession().createQuery("select 1 from User where email = :email")
+				.setString("email", email).uniqueResult();
+		if(result == null)
+			return false;
+		else
+			return true;
+		}
+		catch(NullPointerException e){
+			e.getMessage();
+			return false;
+		}
+	}
+
+	@Override
+	public String getUseremail(String email) {
+		try{
+		String result = (String) sessionFactory.getCurrentSession().createQuery("select email from User where email = :email")
+				.setString("email", email)
+				.uniqueResult();
+		return result;
+		}catch(NullPointerException e){
+			e.getMessage();
+			return null;
+		}
+	}
+
+	@Override
+	public Integer editUserPassword(String email, String password) throws Exception {
+		Integer result = sessionFactory.getCurrentSession().createQuery("update User set password = :password where email = :email")
+				.setString("email", email)
+				.setString("password", password)
+				.executeUpdate();
+		return result;
+	}
+
 	
 }

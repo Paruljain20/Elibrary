@@ -1,9 +1,12 @@
 package com.app.elib.bean;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class User {
@@ -11,6 +14,9 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String name;
+	
+	@Column(unique = true)
+	@JsonView
 	private String email;
 	private String password;
 	private boolean isLibrarian;

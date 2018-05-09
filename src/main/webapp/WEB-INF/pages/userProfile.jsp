@@ -1,4 +1,5 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="com.app.elib.bean.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,38 +12,32 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">My eLibrary</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li><a href="/MavenElibrary/">Home</a></li>
-      <li><a href="mybook.jsp">My Books</a></li>
-      <li><a href="newBooks">New Books</a></li>
-      <li><a href="loginForm">Log In</a></li>
-      <li><a href="registerUser">Sign Up</a></li>
-    </ul>
-    <form class="navbar-form navbar-left" action="/action_page.php">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search" name="search">
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-  </div>
-</nav>
-
+<jsp:include page="navbar.jsp" />
 <div class="container">
   <div class="panel panel-primary">
-  <div class="panel-heading">WELCOME ${fn:toUpperCase(userData.name)}</div>
+  <div class="panel-heading">
+  WELCOME <% 
+User user=(User)session.getAttribute("user");
+out.print(user.getName().toUpperCase());
+%> 
+<input class="btn" type="button" value="Sign Out" onclick="getlogout()" style="float:right; padding:2px 12px"/>
+  </div>
   <div class="panel-body">
+  <input class="btn btn-primary" type="button" value="Add Book" onclick=""/>
   </div>
   </div>
 </div>
 
 </body>
+<script type="text/javascript">
+function getlogout(){
+	$.ajax({
+		type:"GET",
+		  url: "logout",
+		  success: function name() {
+			window.location.href = "/Elibrary/";
+		}
+		});
+}
+</script>
 </html>

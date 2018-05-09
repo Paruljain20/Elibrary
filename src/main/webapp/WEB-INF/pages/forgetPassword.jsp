@@ -13,35 +13,23 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-	<jsp:include page="navbar.jsp" />
-
-	<div class="container col-md-4" style="float: unset;">
-		<c:if test="${message != null || message != ''}">
-			<div>
-				<label style="font-style: italic; color: red;">${message}</label>
-			</div>
-		</c:if>
+	<div class="container col-md-4" style="float: unset;padding: 70px;">
 		<div class="panel panel-primary">
-			<div class="panel-heading">Log In Here</div>
+			<div class="panel-heading">Enter Email Here</div>
 			<div class="panel-body">
-				<form action="loginUser" method="post">
+			<c:if test="${message != null }">
+			<p style="color: red;">${message}</p>
+			</c:if>
+				<form action="/Elibrary/resetPassword" method="Post">
 					<fieldset class="form-group">
 						<span><label class="control-label" for="email">
 								Email</label> <input class="form-control col-sm-4" type="text"
 							name="email" id="email" placeholder="Enter Email" value="" /> </span>
 					</fieldset>
-					<fieldset class="form-group">
-						<span><label class="control-label" for="password">
-								Password</label> <input class="form-control col-sm-4" type="password"
-							name="password" id="password" placeholder="Enter Password"
-							value="" /> </span>
-					</fieldset>
-					<a href="/Elibrary/forgetPassword/" style="float:right;">Forget Password</a>
 					<div class="form-group row">
 						<div class="col-md-4">
-							<button class="btn btn-primary" type="submit" name="login"
-								id="login">Login</button>
+							<button class="btn btn-primary" type="submit" name="resetPassword"
+								id="login">Submit</button>
 						</div>
 					</div>
 				</form>
