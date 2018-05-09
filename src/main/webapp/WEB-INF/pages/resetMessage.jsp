@@ -24,6 +24,7 @@
 			<c:if test="${successMsg != null }">
 			<div>
 			<p  style="padding: 10px;">${successMsg}</p>
+			<a href="/Elibrary/loginForm" style="padding-left: 10px;">Now Login From here</a>
 			</div>
 			</c:if>
 			<c:if test="${errorMsg != null }">
