@@ -6,7 +6,7 @@
     <ul class="nav navbar-nav">
       <li><a href="/Elibrary">Home</a></li>
       <li><a href="mybook.jsp">My Books</a></li>
-      <li><a href="index.jsp">Browse</a></li>
+      <li><a href="loadBooks">Browse</a></li>
       <li><a href="loginForm">Sign In</a></li>
       <li><a href="registerUser">Sign Up</a></li>
     </ul>

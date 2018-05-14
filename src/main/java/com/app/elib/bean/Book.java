@@ -16,13 +16,9 @@ public class Book {
 	private String author;
 	private String category;
 	private long isbn;
-	public long getIsbn() {
-		return isbn;
-	}
-	public void setIsbn(long isbn) {
-		this.isbn = isbn;
-	}
-	public Book(long ebid, String name, String detail, float price, String author, String category, long isbn) {
+	private String ebook;
+	public Book(long ebid, String name, String detail, float price, String author, String category, long isbn,
+			String ebook) {
 		super();
 		this.ebid = ebid;
 		this.name = name;
@@ -31,7 +27,21 @@ public class Book {
 		this.author = author;
 		this.category = category;
 		this.isbn = isbn;
+		this.ebook = ebook;
 	}
+	public String getEbook() {
+		return ebook;
+	}
+	public void setEbook(String ebook) {
+		this.ebook = ebook;
+	}
+	public long getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(long isbn) {
+		this.isbn = isbn;
+	}
+	
 	public long getEbid() {
 		return ebid;
 	}
