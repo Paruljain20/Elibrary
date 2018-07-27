@@ -1,11 +1,16 @@
 package com.app.elib.controller;
 
-import java.lang.ProcessBuilder.Redirect;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,10 +18,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.elib.bean.Book;
+import com.app.elib.bean.BookWishList;
+import com.app.elib.bean.User;
 import com.app.elib.service.BookService;
 
 @Controller
 public class BookController {
+	
+	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
 	@Autowired
     BookService bookService;
@@ -63,10 +72,25 @@ public class BookController {
 		return model;
 	}
 	
-	@RequestMapping(value="/addBookToWishList", method=RequestMethod.POST)
-	public ModelAndView addBookToWishList(@RequestParam(value="param1", required=true) String param1, ModelAndView model){
-		return model;
+	@RequestMapping(value="/addBookToWishList", method=RequestMethod.GET)
+	public String addBookToWishList(@RequestParam(value="ebid") int id, HttpSession session){
+		User user = (User) session.getAttribute("user");
+		Date currentDate = new Date();
+		int userId = user.getId();
+		boolean result;
+		BookWishList bookWishList =  new BookWishList();
+		bookWishList.setBookId(id);
+		bookWishList.setUserId(userId);
+		bookWishList.setDate(currentDate);
+		try {
+			result = bookService.addToWishList(bookWishList);
+			return "true";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return "false";
+		}
+		
 	}
 	
-
 }

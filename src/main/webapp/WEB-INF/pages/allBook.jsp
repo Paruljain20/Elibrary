@@ -60,16 +60,16 @@
 <script type="text/javascript">
 
 function addToWishList(ebid){
-	var formData = {
-			ebid : ebid
-	}
+	
 	$.ajax({
-	 type:"post",
+	 type:"get",
 	 url : "addBookToWishList",
-	 data : JSON.stringify(formData),
+	 data : "ebid="+ebid,
 		dataType : 'json',
 		contentType : "application/json",
-		success : function(data) {}
+		success : function(data) {
+			console.log("Data"+data);
+		}
 	});
 }
 

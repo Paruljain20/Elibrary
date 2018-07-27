@@ -18,12 +18,12 @@ import com.app.elib.dao.BookDao;
 @Service
 @Transactional
 public class BookServiceImpl implements BookService {
-	private static String  fileName = "ebook";
+	public static String  fileName = "ebook";
 	
 	@Autowired
 	BookDao bookDao;
 	
-	@Autowired
+	//@Autowired
 	ServletContext context;
 
 	@Override
@@ -75,6 +75,12 @@ public class BookServiceImpl implements BookService {
 	public boolean addToWishList(BookWishList wishList) throws Exception {
 		bookDao.addToWishList(wishList);
 		return true;
+	}
+
+	@Override
+	public String saveToWishList(int userId, int bookId) {
+	   
+		return null;
 	}
 
 }

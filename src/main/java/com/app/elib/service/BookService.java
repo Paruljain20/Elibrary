@@ -16,5 +16,7 @@ public interface BookService {
 	public List getAllBookList() throws Exception;
 	 
 	public boolean addToWishList(BookWishList wishList) throws Exception;
+	
+	public String saveToWishList(int userId, int bookId);
 
 }

@@ -1,22 +1,37 @@
 package com.app.elib.bean;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class BookWishList {
-	public BookWishList(int userId, long bookId, int noOfItems, Date date) {
-		super();
-		this.userId = userId;
-		this.bookId = bookId;
-		this.noOfItems = noOfItems;
-		this.date = date;
-	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 	private int userId;
 	private long bookId;
-	private int noOfItems;
 	private Date date;
+	
+	public BookWishList(int id, int userId, long bookId, Date date) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.bookId = bookId;
+		this.date = date;
+	}
+	public BookWishList(){
+		
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getUserId() {
 		return userId;
 	}
@@ -28,12 +43,6 @@ public class BookWishList {
 	}
 	public void setBookId(long bookId) {
 		this.bookId = bookId;
-	}
-	public int getNoOfItems() {
-		return noOfItems;
-	}
-	public void setNoOfItems(int noOfItems) {
-		this.noOfItems = noOfItems;
 	}
 	public Date getDate() {
 		return date;
