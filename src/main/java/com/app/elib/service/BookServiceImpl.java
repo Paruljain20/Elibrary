@@ -23,7 +23,7 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	BookDao bookDao;
 	
-	//@Autowired
+	@Autowired
 	ServletContext context;
 
 	@Override

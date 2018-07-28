@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,7 @@ import com.app.elib.bean.Book;
 import com.app.elib.bean.BookWishList;
 import com.app.elib.bean.User;
 import com.app.elib.service.BookService;
+import com.mysql.cj.xdevapi.JsonString;
 
 @Controller
 public class BookController {
@@ -73,7 +76,7 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/addBookToWishList", method=RequestMethod.GET)
-	public String addBookToWishList(@RequestParam(value="ebid") int id, HttpSession session){
+	public ResponseEntity<String>  addBookToWishList(@RequestParam(value="ebid") int id, HttpSession session){
 		User user = (User) session.getAttribute("user");
 		Date currentDate = new Date();
 		int userId = user.getId();
@@ -84,11 +87,11 @@ public class BookController {
 		bookWishList.setDate(currentDate);
 		try {
 			result = bookService.addToWishList(bookWishList);
-			return "true";
+			return  new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-			return "false";
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 		
 	}

@@ -36,8 +36,10 @@
 								<li><label class="control-label">Detail</label> : ${list.get(i-1).getDetail()}</li>
 								<li><label class="control-label">Price</label> : $${list.get(i-1).getPrice()}</li>
 							</ul>
-					<button class="btn btn-primary" type="submit" name="abook"
-						id="abook" onclick="addToWishList(${list.get(i-1).getEbid()})">Add to wish list</button>
+							 <input  class="btn btn-primary" id="wishlist" type="button"
+							  value="Add To Wish List" onclick="addToWishList(${list.get(i-1).getEbid()})" />
+					<%-- <button class="btn btn-primary" type="submit" name="wishlist"
+						id="wishlist" onclick="addToWishList(${list.get(i-1).getEbid()})" value="Add to wish list"></button> --%>
 						</div>
 					</div>
 				</div>
@@ -65,11 +67,12 @@ function addToWishList(ebid){
 	 type:"get",
 	 url : "addBookToWishList",
 	 data : "ebid="+ebid,
-		dataType : 'json',
-		contentType : "application/json",
-		success : function(data) {
-			console.log("Data"+data);
-		}
+	 success : function() {
+		 $("#wishlist").prop("value","Added to wish list");
+		 $( "#wishlist" ).prop( "disabled", true );
+		},
+	error : function(){
+	}
 	});
 }
 
