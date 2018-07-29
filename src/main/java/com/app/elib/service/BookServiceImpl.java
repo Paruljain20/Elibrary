@@ -78,9 +78,11 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public String saveToWishList(int userId, int bookId) {
-	   
-		return null;
+	public boolean isAddedInWishList(int userId, int bookId){
+		boolean result = bookDao.isAddedInWishList(userId, bookId);
+		if (result){
+			return true;
+		}
+		return false;
 	}
-
 }

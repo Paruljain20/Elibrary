@@ -2,6 +2,7 @@ package com.app.elib.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,17 @@ public class BookDaoImpl implements BookDao{
 	public boolean addToWishList(BookWishList wishList) throws Exception {
 		 sessionFactory.getCurrentSession().saveOrUpdate(wishList);
 		return true;
+	}
+
+	@Override
+	public boolean isAddedInWishList(int userId, int bookId) {
+		Object result =  sessionFactory.getCurrentSession()
+				.createQuery("SELECT 1 FROM BookWishList WHERE userId = :userId AND bookId = :bookId")
+				.setInteger("userId", userId).setInteger("bookId", bookId).uniqueResult();
+				if(result != null){
+					return true;
+				}
+		return false;
 	}
 
 }

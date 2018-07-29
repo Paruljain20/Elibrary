@@ -77,18 +77,31 @@ public class BookController {
 	
 	@RequestMapping(value="/addBookToWishList", method=RequestMethod.GET)
 	public ResponseEntity<String>  addBookToWishList(@RequestParam(value="ebid") int id, HttpSession session){
+		try {
 		User user = (User) session.getAttribute("user");
 		Date currentDate = new Date();
+		if(user !=null){
 		int userId = user.getId();
 		boolean result;
 		BookWishList bookWishList =  new BookWishList();
 		bookWishList.setBookId(id);
 		bookWishList.setUserId(userId);
 		bookWishList.setDate(currentDate);
-		try {
+		boolean isAddedToList = bookService.isAddedInWishList(userId, id);
+		String responseMsg = null;
+		if(isAddedToList){
+			responseMsg = "This Book Already added in wish list";
+		}else{
 			result = bookService.addToWishList(bookWishList);
-			return  new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e) {
+		}return  new ResponseEntity<String>(responseMsg,HttpStatus.OK);
+		}
+		else{
+			String errorMsg = "Please Log In First";
+			return new ResponseEntity<String>(errorMsg, HttpStatus.OK);
+		}
+		}
+		
+		catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.CONFLICT);

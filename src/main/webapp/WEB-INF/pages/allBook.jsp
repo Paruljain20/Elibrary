@@ -67,9 +67,14 @@ function addToWishList(ebid){
 	 type:"get",
 	 url : "addBookToWishList",
 	 data : "ebid="+ebid,
-	 success : function() {
+	 success : function(response) {
+		 console.log("response+"+response);
+		 if(response){
+		 alert(response);
+		 }else{
 		 $("#wishlist").prop("value","Added to wish list");
 		 $( "#wishlist" ).prop( "disabled", true );
+		 }
 		},
 	error : function(){
 	}
