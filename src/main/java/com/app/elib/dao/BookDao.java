@@ -15,5 +15,7 @@ public interface BookDao {
 	public boolean addToWishList(BookWishList wishList) throws Exception;
 	
 	public boolean isAddedInWishList(int userId, int bookId);
+	
+	public List getBookCategory();
  
 }

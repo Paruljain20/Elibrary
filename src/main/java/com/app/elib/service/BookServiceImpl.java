@@ -85,4 +85,12 @@ public class BookServiceImpl implements BookService {
 		}
 		return false;
 	}
+	
+	public List getBookCategory(){
+	  List result = bookDao.getBookCategory();
+	  if(result != null){
+		  return result;
+	  }
+	  return null;
+	}
 }

@@ -49,10 +49,16 @@
 					</fieldset>
 
 					<fieldset class="form-group">
-						<span><label class="control-label" for="category">Category
-						</label> <input class="form-control col-md-4" type="text" name="category"
-							id="category" placeholder="Enter Type Of Book"
-							required="required" /> </span>
+						<span><label class="control-label" for="category">Category</label>
+						<select class="form-control col-md-4" id="category">
+						<option>Select Category</option>
+						<option>Science</option>
+						<option>Food</option>
+						<option>Biography</option>
+						<option>Religion</option>
+						<option>Others</option>
+						</select>
+						</span>
 					</fieldset>
 					<fieldset class="form-group">
 						<span><label class="control-label" for="author">Author

@@ -50,4 +50,10 @@ public class BookDaoImpl implements BookDao{
 		return false;
 	}
 
+	@Override
+	public List getBookCategory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
