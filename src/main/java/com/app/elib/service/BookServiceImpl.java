@@ -86,11 +86,40 @@ public class BookServiceImpl implements BookService {
 		return false;
 	}
 	
+	@Override
 	public List getBookCategory(){
+	try{
 	  List result = bookDao.getBookCategory();
 	  if(result != null){
 		  return result;
 	  }
+		}catch(Exception e){
+			e.getMessage();
+		}
 	  return null;
 	}
+
+	@Override
+	public List getBookById(int bid) throws Exception {
+	   try {
+		List result = bookDao.getBookById(bid);
+		return result;
+	} catch (Exception e) {
+		e.getMessage();
+	}
+		return null;
+	}
+
+	@Override
+	public List getBookListByUserId(int uid) throws Exception {
+		try {
+			List result = bookDao.getBookListByUserId(uid);
+			return result;
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return null;
+	}
+
+
 }

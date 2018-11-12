@@ -1,4 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,13 +51,11 @@
 
 					<fieldset class="form-group">
 						<span><label class="control-label" for="category">Category</label>
-						<select class="form-control col-md-4" id="category">
+						<select class="form-control col-md-4" id="category" name="category">
 						<option>Select Category</option>
-						<option>Science</option>
-						<option>Food</option>
-						<option>Biography</option>
-						<option>Religion</option>
-						<option>Others</option>
+						<c:forEach items="${catList}" var="bookCatList">
+						<option>${bookCatList.getName()}</option>
+						</c:forEach>
 						</select>
 						</span>
 					</fieldset>

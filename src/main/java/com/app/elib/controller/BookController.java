@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.app.elib.bean.Book;
 import com.app.elib.bean.BookWishList;
+import com.app.elib.bean.Category;
 import com.app.elib.bean.User;
 import com.app.elib.service.BookService;
+import com.app.elib.service.BookServiceImpl;
 import com.mysql.cj.xdevapi.JsonString;
 
 @Controller
@@ -33,6 +35,8 @@ public class BookController {
 	@Autowired
     BookService bookService;
 	
+	BookServiceImpl bookServiceImpl = new BookServiceImpl();
+	
 	@RequestMapping(value="/allBook", method=RequestMethod.GET)
 	public ModelAndView allBooks(@ModelAttribute("book") Book book, ModelAndView model){
 		model.setViewName("allBook");
@@ -40,7 +44,9 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/addBook", method=RequestMethod.GET)
-	public ModelAndView addBookForm(@ModelAttribute("book") Book book, ModelAndView model){
+	public ModelAndView addBookForm(@ModelAttribute("book") Book book, ModelAndView model) throws Exception{
+		List bookCat = bookService.getBookCategory();
+		model.addObject("catList", bookCat);
 		model.setViewName("addbook");
 		return model;
 	}
@@ -63,14 +69,17 @@ public class BookController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/loadBooks")
-	public ModelAndView loadBookList(ModelAndView model){
+	public ModelAndView loadBookList(ModelAndView model) throws Exception{
 		List<Book> listOfBook = null;
+		List<Category> listOfBookCat = null;
 		try {
 			listOfBook = bookService.getAllBookList();
+			listOfBookCat = bookService.getBookCategory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.addObject("list", listOfBook);
+		model.addObject("bookCatList", listOfBookCat);
 		model.setViewName("allBook");
 		return model;
 	}
@@ -106,10 +115,6 @@ public class BookController {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
-		
-	}
-	
-	public void getBookCategory(){
 		
 	}
 	

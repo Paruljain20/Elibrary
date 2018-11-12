@@ -52,7 +52,38 @@ public class BookDaoImpl implements BookDao{
 
 	@Override
 	public List getBookCategory() {
-		// TODO Auto-generated method stub
+		try{
+		List result = sessionFactory.getCurrentSession().createQuery("FROM Category ORDER BY id").list();
+		if(result != null){
+			return result;
+		}
+		}catch(NullPointerException e){
+			e.getMessage();
+		}
+		return null;
+	}
+
+	@Override
+	public List getBookById(int bid) throws Exception {
+		try{
+			List result = (List) sessionFactory.getCurrentSession().byId("Book");
+			if(result != null)
+				return result;
+		}catch(Exception e){
+			e.getMessage();
+		}
+		return null;
+	}
+
+	@Override
+	public List getBookListByUserId(int uid) throws Exception {
+		try {
+			List result = (List) sessionFactory.getCurrentSession().createQuery("SELECT * FROM BookWishList WHERE userId: uid").setInteger("uid", uid);
+		    if(result != null)
+		    	return result;
+		} catch (Exception e) {
+			e.getMessage();
+		}
 		return null;
 	}
 

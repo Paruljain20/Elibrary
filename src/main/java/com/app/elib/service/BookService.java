@@ -18,5 +18,11 @@ public interface BookService {
 	public boolean addToWishList(BookWishList wishList) throws Exception;
 	
 	public boolean isAddedInWishList(int userId, int bookId);
+	
+	public List getBookCategory() throws Exception;
+	
+	public List getBookById(int bid) throws Exception;
+	
+	public List getBookListByUserId(int uid) throws Exception;
 
 }
