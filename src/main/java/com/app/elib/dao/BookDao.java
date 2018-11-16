@@ -18,8 +18,10 @@ public interface BookDao {
 	
 	public List getBookCategory();
 	
-	public List getBookById(int bid) throws Exception;
+	public Book getBookById(int bid) throws Exception;
 	
 	public List getBookListByUserId(int uid) throws Exception;
- 
+	
+	public boolean removeToWishList(int bookId, int userId) throws Exception;
+	
 }

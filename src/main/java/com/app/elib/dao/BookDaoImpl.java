@@ -64,9 +64,10 @@ public class BookDaoImpl implements BookDao{
 	}
 
 	@Override
-	public List getBookById(int bid) throws Exception {
+	public Book getBookById(int bid) throws Exception {
 		try{
-			List result = (List) sessionFactory.getCurrentSession().byId("Book");
+			@SuppressWarnings("unchecked")
+			Book result = (Book) sessionFactory.getCurrentSession().createQuery("FROM Book WHERE ebid = :bid").setLong("bid", bid).uniqueResult();
 			if(result != null)
 				return result;
 		}catch(Exception e){
@@ -76,15 +77,30 @@ public class BookDaoImpl implements BookDao{
 	}
 
 	@Override
-	public List getBookListByUserId(int uid) throws Exception {
+	public List<BookWishList> getBookListByUserId(int uid) throws Exception {
 		try {
-			List result = (List) sessionFactory.getCurrentSession().createQuery("SELECT * FROM BookWishList WHERE userId: uid").setInteger("uid", uid);
+			@SuppressWarnings("unchecked")
+			List<BookWishList> result = (List<BookWishList>) sessionFactory.getCurrentSession().createQuery("FROM BookWishList WHERE userId = :userId").setInteger("userId", uid).list();
 		    if(result != null)
 		    	return result;
 		} catch (Exception e) {
 			e.getMessage();
 		}
 		return null;
+	}
+
+	@Override
+	public boolean removeToWishList(int bookId, int userId ) throws Exception {
+		try{
+			sessionFactory.getCurrentSession().createQuery("DELETE FROM BookWishList WHERE bookId = :bookId AND userId = :userId")
+			.setInteger("bookId", bookId)
+			.setInteger("userId", userId)
+			.executeUpdate();
+		    return true;
+		}catch(Exception ex){
+			ex.getMessage();
+		}
+		return false;
 	}
 
 }

@@ -20,5 +20,8 @@
         </div>
       </div>
     </form>
+     <div class="navbar-header">
+      <a class="navbar-brand" href="gotoCart">Cart</a>
+    </div>
   </div>
 </nav>

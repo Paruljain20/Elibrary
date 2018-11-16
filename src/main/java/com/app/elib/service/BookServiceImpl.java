@@ -100,9 +100,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List getBookById(int bid) throws Exception {
+	public Book getBookById(int bid) throws Exception {
 	   try {
-		List result = bookDao.getBookById(bid);
+		Book result = bookDao.getBookById(bid);
 		return result;
 	} catch (Exception e) {
 		e.getMessage();
@@ -111,9 +111,10 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List getBookListByUserId(int uid) throws Exception {
+	public List<BookWishList> getBookListByUserId(int uid) throws Exception {
 		try {
-			List result = bookDao.getBookListByUserId(uid);
+			@SuppressWarnings("unchecked")
+			List<BookWishList> result = bookDao.getBookListByUserId(uid);
 			return result;
 		} catch (Exception e) {
 			e.getMessage();
@@ -121,5 +122,10 @@ public class BookServiceImpl implements BookService {
 		return null;
 	}
 
+	@Override
+	public boolean removeToWishList(int bookId, int userId) throws Exception {
+		bookDao.removeToWishList(bookId, userId);
+		return true;
+	}
 
 }
