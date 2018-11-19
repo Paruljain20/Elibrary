@@ -74,6 +74,19 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10000000" />
 	</bean>
+	<bean id="paymentConfig" class="com.app.elib.paypal.config.PaypalConfig" >
+	    <property name="clientId" value="${paypal.client.id}"/>
+	    <property name="clientSecret" value="${paypal.client.secret}" />
+	    <property name="mode" value="${paypal.mode}"></property>
+	</bean>
+	
+	<bean id="paypalService" class="com.app.elib.paypal.service.PaypalService">
+	    <property name="apiContext" ref="apiContext"></property>
+	</bean>
+	<bean id="apiContext" class="com.paypal.base.rest.APIContext.class">
+	<property name="accessToken" ref="accessToken"></property>
+	</bean>
+
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 </beans>

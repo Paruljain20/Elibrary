@@ -13,9 +13,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 	<jsp:include page="navbar.jsp" />
-
 	<div class="container">
 		<div class="panel-group">
 			<c:forEach begin="1" end="${list.size()}" var="i" step="1">
@@ -36,8 +34,9 @@
 								<li><label class="control-label">Detail</label> : ${list.get(i-1).getDetail()}</li>
 								<li><label class="control-label">Price</label> : $${list.get(i-1).getPrice()}</li>
 							</ul>
-							 <input  class="btn btn-primary" id="wishlist" type="button"
-							  value="Add To Wish List" onclick="addToWishList(${list.get(i-1).getEbid()})" />
+							 <input  class="btn btn-success" id="wishlist" type="button"
+							  value="Add To Cart" onclick="addToWishList(${list.get(i-1).getEbid()})" />
+							  <input class="btn btn-warning" id="payNow" type="button" value="Buy Now"/>
 					<%-- <button class="btn btn-primary" type="submit" name="wishlist"
 						id="wishlist" onclick="addToWishList(${list.get(i-1).getEbid()})" value="Add to wish list"></button> --%>
 						</div>

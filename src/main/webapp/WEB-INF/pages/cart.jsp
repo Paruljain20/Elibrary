@@ -40,7 +40,7 @@
 								<li><label class="control-label">Price</label> :
 									$${bookList.get(i-1).getPrice()}</li>
 							</ul>
-							<input class="btn btn-primary" id="removeToCart" type="button"
+							<input class="btn btn-danger" id="removeToCart" type="button"
 								value="Remove From Cart"
 								onclick="removeToWishList(${bookList.get(i-1).getEbid()})" />
 						</div>
@@ -48,6 +48,7 @@
 				</div>
 			</c:forEach>
 		</div>
+		<input class="btn btn-warning" id="payNow" type="button" value="Continue" onclick="paymentPortal()"/>
 	</div>
 
 </body>
@@ -64,5 +65,17 @@ function removeToWishList(ebid){
 	error : function(){
 	}
 	});
+}
+
+function paymentPortal(){
+	$.ajax({
+		 type:"post",
+		 url : "pay",
+		 success : function(response) {
+			 location.reload();
+			},
+		error : function(){
+		}
+		});
 }
 </script>
