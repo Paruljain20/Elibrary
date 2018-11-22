@@ -81,12 +81,10 @@
 	</bean>
 	
 	<bean id="paypalService" class="com.app.elib.paypal.service.PaypalService">
-	    <property name="apiContext" ref="apiContext"></property>
 	</bean>
-	<bean id="apiContext" class="com.paypal.base.rest.APIContext.class">
-	<property name="accessToken" ref="accessToken"></property>
+	
+	<bean id="apiContext" class="com.paypal.base.rest.APIContext">
 	</bean>
-
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 </beans>

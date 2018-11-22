@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,7 @@ import com.tranxactive.paymentprocessor.gateways.core.AvailableGateways;
 import com.tranxactive.paymentprocessor.gateways.core.Gateway;
 import com.tranxactive.paymentprocessor.gateways.core.GatewayFactory;
 
-@RestController
+@Controller
 public class RestGatewayController {
 
 	/*@RequestMapping(value = "/payment", method = RequestMethod.GET)
@@ -39,7 +40,7 @@ public class RestGatewayController {
 	@Autowired
 	private PaypalService paypalService;
 	
-	@RequestMapping(method = RequestMethod.POST, value = "pay")
+	@RequestMapping(method = RequestMethod.POST, value = "/pay")
 	public String pay(HttpServletRequest request){
 		String cancelUrl = PAYPAL_CANCEL_URL;
 		String successUrl =  PAYPAL_SUCCESS_URL;
