@@ -3,13 +3,17 @@ package com.app.elib.paypal.service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.elib.paypal.config.PaypalPaymentIntent;
 import com.app.elib.paypal.config.PaypalPaymentMethod;
+import com.app.elib.paypal.rest.PaypalRestService;
+import com.mashape.unirest.http.HttpResponse;
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
@@ -56,8 +60,19 @@ public class PaypalService {
 		redirectUrls.setCancelUrl(cancelUrl);
 		redirectUrls.setReturnUrl(successUrl);
 		payment.setRedirectUrls(redirectUrls);
-
-		return payment.create(apiContext);
+        
+		PaypalRestService restRequest = new PaypalRestService();
+		HttpResponse<String> response = restRequest.login();
+		 apiContext = new APIContext("Bearer A21AAHusvRqpKMlAiOVAuoPFO67HF1bkiLbeOmk4PpLn3vIf6k9V9zK-HjjAVp2_tKshFX3YeZQ3HdW9J1Q6HMO4RgI00e8yg");
+		try{
+			Map<String, String> configurationMap = new HashMap<String, String>();
+			configurationMap.put("mode", "sandbox");
+			apiContext.setConfigurationMap(configurationMap);
+		 return payment.create(apiContext);
+		}catch(Exception ex){
+			ex.getMessage();
+		}
+		return null;
 	}
 	
 	public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException{

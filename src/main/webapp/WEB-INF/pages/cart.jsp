@@ -72,9 +72,13 @@ function paymentPortal(){
 		 type:"post",
 		 url : "pay",
 		 success : function(response) {
-			 location.reload();
+			 console.log("response" +response);
+			 response.header("Access-Control-Allow-Origin", "*");
+			 response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+			  next();
 			},
-		error : function(){
+		error : function(response){
+			console.log("error" +response.getResponseHeader());
 		}
 		});
 }

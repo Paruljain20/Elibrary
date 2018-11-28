@@ -42,8 +42,8 @@ public class RestGatewayController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/pay")
 	public String pay(HttpServletRequest request){
-		String cancelUrl = PAYPAL_CANCEL_URL;
-		String successUrl =  PAYPAL_SUCCESS_URL;
+		String cancelUrl = com.app.elib.utils.URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_URL;
+		String successUrl = com.app.elib.utils.URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_URL;
 		try {
 			Payment payment = paypalService.createPayment(
 					4.00, 
