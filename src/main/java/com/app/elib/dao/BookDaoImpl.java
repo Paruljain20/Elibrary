@@ -79,7 +79,7 @@ public class BookDaoImpl implements BookDao{
 	@Override
 	public List<BookWishList> getBookListByUserId(int uid) throws Exception {
 		try {
-			@SuppressWarnings("unchecked")
+			@SuppressWarnings("unchecked") 
 			List<BookWishList> result = (List<BookWishList>) sessionFactory.getCurrentSession().createQuery("FROM BookWishList WHERE userId = :userId").setInteger("userId", uid).list();
 		    if(result != null)
 		    	return result;

@@ -7,54 +7,47 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <link rel="stylesheet" type="text/css" href="mystyle.css">
- <script src="myscripts.js"></script>
+ <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mystyle.css">
+ <script src="<%=request.getContextPath()%>/resources/js/myscripts.js"></script>
 </head>
 <body>
 
 <jsp:include page="navbar.jsp" />  
 
 <div class="container">
-  <div class="panel panel-primary">
-  <div class="panel-heading">Books</div>
-  <div class="panel-body">
-   <div class="row">
-    <div class="col-md-12">
-      <div class="carousel slide multi-item-carousel" id="theCarousel">
-        <div class="carousel-inner">
-          <div class="item active">
-            <div class="col-xs-4"><a href="#1"><img src="/images/image1.jpg" class="img-responsive"></a></div>
-           </div>
-         <!-- <!--  <div class="item">
-            <div class="col-xs-4"><a href="#1"><img src="/images/image2.jpg" class="img-responsive"></a></div>
-          </div>
-          <div class="item">
-            <div class="col-xs-4"><a href="#1"><img src="/images/image3.jpg" class="img-responsive"></a></div>
-          </div>
-          <div class="item">
-            <div class="col-xs-4"><a href="#1"><img src="/images/image4.jpg" class="img-responsive"></a></div>
-          </div>
-          <div class="item"> 
-            <div class="col-xs-4"><a href="#1"><img src="http://placehold.it/300/4caf50/000000" class="img-responsive"></a></div>
-          </div>
-          <div class="item">
-            <div class="col-xs-4"><a href="#1"><img src="http://placehold.it/300/8bc34a/000000" class="img-responsive"></a></div>
-          </div> -->
-          add  more items here
-          Example item start: 
-          
-         <!--  <div class="item">
-            <div class="col-xs-4"><a href="#1"><img src="http://placehold.it/300/8bc34a/000000" class="img-responsive"></a></div>
-          </div>  -->
-          
-          <!--  Example item end -->
-        </div>
-        <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-        <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarouse1" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="<%=request.getContextPath()%>/resources/images/image1.jpg" alt="Los Angeles" style="width:100%">
       </div>
+
+      <div class="item">
+        <img src="<%=request.getContextPath()%>/resources/images/image2.jpg" alt="Chicago" style="width:100%">
+      </div>
+    
+      <div class="item">
+        <img src="<%=request.getContextPath()%>/resources/images/image3.png" alt="New york" style="width:100%;">
+      </div>
+      
     </div>
-  </div>
-  </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
 </div>
 

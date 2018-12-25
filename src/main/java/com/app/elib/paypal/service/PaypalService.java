@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +64,8 @@ public class PaypalService {
         
 		PaypalRestService restRequest = new PaypalRestService();
 		HttpResponse<String> response = restRequest.login();
-		 apiContext = new APIContext("Bearer A21AAHusvRqpKMlAiOVAuoPFO67HF1bkiLbeOmk4PpLn3vIf6k9V9zK-HjjAVp2_tKshFX3YeZQ3HdW9J1Q6HMO4RgI00e8yg");
+		JSONObject jsonResponse = new JSONObject(response.getBody());
+		 apiContext = new APIContext("Bearer"+" "+jsonResponse.getString("access_token"));
 		try{
 			Map<String, String> configurationMap = new HashMap<String, String>();
 			configurationMap.put("mode", "sandbox");

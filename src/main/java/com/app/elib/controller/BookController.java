@@ -52,11 +52,12 @@ public class BookController {
 
 	@RequestMapping(value = "/saveBook", method = RequestMethod.POST)
 	public ModelAndView saveBook(@ModelAttribute Book book, @RequestParam("file") MultipartFile file,
-			ModelAndView model) {
+			ModelAndView model, HttpSession session) {
 		Book result = null;
 		try {
 			result = bookService.save(book, file);
 			model.addObject("bookObj", result);
+			model.addObject("session", session.getAttribute("user"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,7 +70,7 @@ public class BookController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/loadBooks")
-	public ModelAndView loadBookList(ModelAndView model) throws Exception {
+	public ModelAndView loadBookList(ModelAndView model, HttpSession session) throws Exception {
 		List<Book> listOfBook = null;
 		List<Category> listOfBookCat = null;
 		try {
@@ -80,9 +81,29 @@ public class BookController {
 		}
 		model.addObject("list", listOfBook);
 		model.addObject("bookCatList", listOfBookCat);
+		model.addObject("session", session.getAttribute("user"));
 		model.setViewName("allBook");
 		return model;
 	}
+	
+	@RequestMapping(value = "/myBooks")
+	public ModelAndView loadMyBooks(ModelAndView model, HttpSession session) throws Exception {
+		List<Book> listOfBook = null;
+		List<Category> listOfBookCat = null;
+		try {
+			User user = (User) session.getAttribute("user");
+			int userId =  user.getId();
+			listOfBook = bookService.getBookListByUserId(userId);
+			listOfBookCat = bookService.getBookCategory();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addObject("list", listOfBook);
+		model.addObject("bookCatList", listOfBookCat);
+		model.setViewName("myBook");
+		return model;
+	}
+	
 
 	@RequestMapping(value = "/addBookToWishList", method = RequestMethod.GET)
 	public ResponseEntity<String> addBookToWishList(@RequestParam(value = "ebid") int id, HttpSession session) {
@@ -133,6 +154,7 @@ public class BookController {
 
 		}
 		model.addObject("bookList", cartList);
+		model.addObject("session", session.getAttribute("user"));
 		model.setViewName("cart");
 		return model;
 	}

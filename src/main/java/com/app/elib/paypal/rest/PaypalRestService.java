@@ -50,7 +50,7 @@ public class PaypalRestService {
 	        		.header("Authorization", "Basic " + encodedString)
 	        		.header("Accept", "application/json")
 	        		.header("Content-Type", "application/x-www-form-urlencoded")
-	        		.header("Access-Control-Allow-Origin", "http://localhost:8080/Elibrary/pay")
+	        		.header("Access-Control-Allow-Origin", "http://localhost:8080")
 	        		.body("grant_type=client_credentials")
 	        		.getHttpRequest();
             HttpResponse<String> response;
@@ -59,7 +59,7 @@ public class PaypalRestService {
 				 if(response.getStatus() == 200){
 					 return response;
 			        }
-			} catch (UnirestException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

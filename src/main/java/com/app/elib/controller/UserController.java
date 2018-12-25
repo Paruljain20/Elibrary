@@ -28,8 +28,9 @@ public class UserController {
 	
 	// This method is used to open index page
 	@RequestMapping("/")
-	public ModelAndView index(ModelAndView model) {
+	public ModelAndView index(ModelAndView model, HttpSession session) {
 		model.setViewName("index");
+		model.addObject("session", session.getAttribute("user"));
 		return model;
 	}
 
@@ -78,9 +79,9 @@ public class UserController {
 		try {
 		   result = userService.loginUser(user);
 		   if(result != null){
-		   //model.addObject("user", result);
 		   model.setViewName("userProfile");
 		   session.setAttribute("user", result);
+		   model.addObject("session", session.getAttribute("user"));
 		   }
 		   else{
 			   model.setViewName("login");
@@ -104,6 +105,13 @@ public class UserController {
 	@RequestMapping(value="/forgetPassword", method=RequestMethod.GET)
 	public ModelAndView forgetPassword(@ModelAttribute("user") User user, ModelAndView model){
 		model.setViewName("forgetPassword");
+		return model;
+	}
+	
+	@RequestMapping(value="/userProfile", method=RequestMethod.GET)
+	public ModelAndView loadUserProfile(@ModelAttribute("user") User user, ModelAndView model, HttpSession session){
+		model.setViewName("userProfile");
+		model.addObject("session", session.getAttribute("user"));
 		return model;
 	}
 	

@@ -24,8 +24,8 @@
 User user=(User)session.getAttribute("user");
 out.print(user.getName().toUpperCase());
 %>
-				<input class="btn" type="button" value="Sign Out"
-					onclick="getlogout()" style="float: right; padding: 2px 12px" />
+				<!-- <input class="btn" type="button" value="Sign Out"
+					onclick="getlogout()" style="float: right; padding: 2px 12px;" /> -->
 			</div>
 			<div class="panel-body">
 				<form action="addBook" method="get">
@@ -39,6 +39,10 @@ out.print(user.getName().toUpperCase());
 
 </body>
 <script type="text/javascript">
+$(document).ready(function(){
+	window.location.href = "/";
+}
+
 function getlogout(){
 	$.ajax({
 		type:"GET",

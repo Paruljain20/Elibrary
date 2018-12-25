@@ -48,7 +48,9 @@
 				</div>
 			</c:forEach>
 		</div>
+		<c:if test="${bookList.size() > 0}">
 		<input class="btn btn-warning" id="payNow" type="button" value="Continue" onclick="paymentPortal()"/>
+	    </c:if>
 	</div>
 
 </body>
@@ -73,12 +75,11 @@ function paymentPortal(){
 		 url : "pay",
 		 success : function(response) {
 			 console.log("response" +response);
-			 response.header("Access-Control-Allow-Origin", "*");
+			 response.header("Access-Control-Allow-Origin", "http://localhost:8080");
 			 response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-			  next();
+			 next();
 			},
 		error : function(response){
-			console.log("error" +response.getResponseHeader());
 		}
 		});
 }
