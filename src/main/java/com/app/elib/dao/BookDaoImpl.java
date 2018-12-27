@@ -103,4 +103,19 @@ public class BookDaoImpl implements BookDao{
 		return false;
 	}
 
+	@Override
+	public List<Book> getBookListWithPage(int pageId, int total) {
+		try{
+			Query qry = sessionFactory.getCurrentSession().createQuery("FROM Book");
+			qry.setFirstResult(pageId-1);
+			qry.setMaxResults(total);
+			List<Book> list = qry.list();
+			return list;
+			}
+			catch(Exception e){
+				e.getMessage();
+				return null;
+			}
+	}
+
 }

@@ -56,6 +56,16 @@
 			</div>
 			</c:if>
 		</div>
+		<div>
+		<c:if test="${listOfAllBook.size() > 0}">
+		<!-- Pagination links in spring mvc. -->             
+              <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/loadBooks/1">1</a></li>
+                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/loadBooks/2">2</a></li>
+                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/loadBooks/3">3</a></li>
+              </ul>
+		</c:if>
+		</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -71,7 +81,7 @@ function addToWishList(ebid){
 		 if(response){
 		 alert(response);
 		 }else{
-		 $("#wishlist").prop("value","Added to wish list");
+		 $("#wishlist").prop("value","Added to Cart");
 		 $( "#wishlist" ).prop( "disabled", true );
 		 }
 		},

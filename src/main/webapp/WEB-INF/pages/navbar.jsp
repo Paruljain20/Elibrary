@@ -10,9 +10,9 @@
       <a href="mybook.jsp">My Books</a>
       </c:if>
       </li>
-      <li><a href="loadBooks">Browse</a></li>
-      <li><a href="loginForm">Sign In</a></li>
-      <li><a href="registerUser">Sign Up</a></li>
+      <li><a href="<%=request.getContextPath()%>/loadBooks/1">Browse</a></li>
+      <li><a href="<%=request.getContextPath()%>/loginForm">Sign In</a></li>
+      <li><a href="<%=request.getContextPath()%>/registerUser">Sign Up</a></li>
     </ul>
     <form class="navbar-form navbar-left" action="/action_page.php">
       <div class="input-group">
@@ -26,8 +26,8 @@
     </form>
      <div class="navbar-header">
      <c:if test="${session != null}">
-      <a class="navbar-brand" href="gotoCart"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-     <a class="navbar-brand" href="userProfile"><span class="glyphicon glyphicon-user"></span></a></c:if>
+      <a class="navbar-brand" href="<%=request.getContextPath()%>/gotoCart"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+     <a class="navbar-brand" href="<%=request.getContextPath()%>/userProfile"><span class="glyphicon glyphicon-user"></span></a></c:if>
     </div>
      <ul class="nav navbar-nav">
       <li><c:if test="${session != null}">

@@ -128,4 +128,10 @@ public class BookServiceImpl implements BookService {
 		return true;
 	}
 
+	@Override
+	public List getBookListWithPage(int pageId, int total) {
+		List list = bookDao.getBookListWithPage(pageId, total);
+		return list;
+	}
+
 }

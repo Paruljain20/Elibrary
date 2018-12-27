@@ -27,4 +27,6 @@ public interface BookService {
 	
 	public boolean removeToWishList(int bookId, int userId) throws Exception;
 	
+	public List getBookListWithPage(int pageId, int total);
+	
 }

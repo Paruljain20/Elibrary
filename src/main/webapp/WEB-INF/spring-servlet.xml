@@ -11,7 +11,7 @@
 	<context:component-scan base-package="com.app.elib" />
 
 	<!-- Getting Database properties -->
-	<context:property-placeholder location="classpath:database.properties" />
+	<context:property-placeholder location="classpath:database.properties, classpath:application.properties" />
 
 	<mvc:annotation-driven />
 
@@ -75,7 +75,7 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10000000" />
 	</bean>
-	<bean id="paymentConfig" class="com.app.elib.paypal.config.PaypalConfig" >
+	<bean id="paypalConfig" class="com.app.elib.paypal.config.PaypalConfig" >
 	    <property name="clientId" value="${paypal.client.id}"/>
 	    <property name="clientSecret" value="${paypal.client.secret}" />
 	    <property name="mode" value="${paypal.mode}"></property>

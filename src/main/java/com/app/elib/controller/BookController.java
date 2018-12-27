@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,7 +69,7 @@ public class BookController {
 		return model;
 	}
 
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/loadBooks")
 	public ModelAndView loadBookList(ModelAndView model, HttpSession session) throws Exception {
 		List<Book> listOfBook = null;
@@ -84,7 +85,7 @@ public class BookController {
 		model.addObject("session", session.getAttribute("user"));
 		model.setViewName("allBook");
 		return model;
-	}
+	}*/
 	
 	@RequestMapping(value = "/myBooks")
 	public ModelAndView loadMyBooks(ModelAndView model, HttpSession session) throws Exception {
@@ -179,7 +180,31 @@ public class BookController {
 
 		// should not reach at this point
 		return null;
-
+	}
+	
+	@RequestMapping(value = "/loadBooks/{pageId}")
+	public ModelAndView loadBookListWithPage(ModelAndView model, HttpSession session, @PathVariable int pageId) throws Exception {
+		List<Book> listOfBook = null;
+		List<Category> listOfBookCat = null;
+		List<Book> listOfAllBook = null;
+		int total = 2;
+		if(pageId == 1){
+		}else{
+			pageId = (pageId-1)*total+1;
+		}
+		try {
+			listOfAllBook = bookService.getAllBookList();
+			listOfBook = bookService.getBookListWithPage(pageId, total);
+			listOfBookCat = bookService.getBookCategory();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addObject("list", listOfBook);
+		model.addObject("bookCatList", listOfBookCat);
+		model.addObject("listOfAllBook", listOfAllBook);
+		model.addObject("session", session.getAttribute("user"));
+		model.setViewName("allBook");
+		return model;
 	}
 
 }

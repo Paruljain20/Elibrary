@@ -39,10 +39,6 @@ out.print(user.getName().toUpperCase());
 
 </body>
 <script type="text/javascript">
-$(document).ready(function(){
-	window.location.href = "/";
-}
-
 function getlogout(){
 	$.ajax({
 		type:"GET",
