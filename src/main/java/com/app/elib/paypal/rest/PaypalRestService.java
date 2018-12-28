@@ -30,7 +30,7 @@ public class PaypalRestService {
 	        		.header("Authorization", "Basic " + encodedString)
 	        		.header("Accept", "application/json")
 	        		.header("Content-Type", "application/x-www-form-urlencoded")
-	        		.header("Access-Control-Allow-Origin", "http://localhost:8080")
+	        		.header("Access-Control-Allow-Origin", "http://localhost:8080/Elibrary")
 	        		.body("grant_type=client_credentials")
 	        		.getHttpRequest();
             HttpResponse<String> response;

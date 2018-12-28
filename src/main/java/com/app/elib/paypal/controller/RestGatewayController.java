@@ -2,6 +2,7 @@ package com.app.elib.paypal.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class RestGatewayController {
 	private PaypalService paypalService;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/pay")
-	public String pay(HttpServletRequest request){
+	public JSONObject pay(HttpServletRequest request){
 		String cancelUrl = com.app.elib.utils.URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_URL;
 		String successUrl = com.app.elib.utils.URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_URL;
 		try {
@@ -48,13 +49,16 @@ public class RestGatewayController {
 					successUrl);
 			for(Links links : payment.getLinks()){
 				if(links.getRel().equals("approval_url")){
-					return "redirect:" + links.getHref();
+					JSONObject result = new JSONObject(); 
+					result.put("redirect_url", links.getHref());
+					return result;
 				}
 			}
 		} catch (PayPalRESTException e) {
 			e.getMessage();
+			return null;
 		}
-		return "redirect:/";
+		return null;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = PAYPAL_CANCEL_URL)

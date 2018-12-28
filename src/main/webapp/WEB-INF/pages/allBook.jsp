@@ -58,12 +58,12 @@
 		</div>
 		<div>
 		<c:if test="${listOfAllBook.size() > 0}">
-		<!-- Pagination links in spring mvc. -->             
+		<!-- Pagination links in spring mvc. -->    
+		<c:forEach begin="1" end="${listOfAllBook.size()%2 == 0 ? listOfAllBook.size()/2 : (listOfAllBook.size()+1)/ 2}" var="j" step="1">       
               <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/loadBooks/1">1</a></li>
-                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/loadBooks/2">2</a></li>
-                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/loadBooks/3">3</a></li>
-              </ul>
+                <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/loadBooks/${j}">${j}</a></li>
+                </ul>
+        </c:forEach>  
 		</c:if>
 		</div>
 	</div>
@@ -82,7 +82,7 @@ function addToWishList(ebid){
 		 alert(response);
 		 }else{
 		 $("#wishlist").prop("value","Added to Cart");
-		 $( "#wishlist" ).prop( "disabled", true );
+		 $("#wishlist").prop( "disabled", true );
 		 }
 		},
 	error : function(){

@@ -187,12 +187,17 @@ public class BookController {
 		List<Book> listOfBook = null;
 		List<Category> listOfBookCat = null;
 		List<Book> listOfAllBook = null;
+		List<BookWishList> bookList = null;
 		int total = 2;
 		if(pageId == 1){
 		}else{
 			pageId = (pageId-1)*total+1;
 		}
 		try {
+			User user = (User) session.getAttribute("user");
+			Integer uid = user.getId();
+			List<Book> cartList = new ArrayList<>();
+			bookList = bookService.getBookListByUserId(uid);
 			listOfAllBook = bookService.getAllBookList();
 			listOfBook = bookService.getBookListWithPage(pageId, total);
 			listOfBookCat = bookService.getBookCategory();
@@ -202,6 +207,7 @@ public class BookController {
 		model.addObject("list", listOfBook);
 		model.addObject("bookCatList", listOfBookCat);
 		model.addObject("listOfAllBook", listOfAllBook);
+		model.addObject("bookList", bookList);
 		model.addObject("session", session.getAttribute("user"));
 		model.setViewName("allBook");
 		return model;

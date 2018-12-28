@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.app.elib.bean.Book;
+import com.app.elib.bean.BookWishList;
 import com.app.elib.bean.User;
+import com.app.elib.service.BookService;
 import com.app.elib.service.EmailService;
 import com.app.elib.service.UserService;
 
@@ -26,10 +29,26 @@ public class UserController {
 	@Autowired
 	private EmailService emailservice;
 	
+	@Autowired
+	private BookService bookService;
+	
 	// This method is used to open index page
 	@RequestMapping("/")
 	public ModelAndView index(ModelAndView model, HttpSession session) {
+		List <Book> bookwishList = null;
+		User user = (User) session.getAttribute("user");
+		if(user != null){
+		Integer uid = user.getId();
+		if(uid != null){
+		try {
+			bookwishList = bookService.getBookListByUserId(uid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		}
+		}
 		model.setViewName("index");
+		model.addObject("bookList", bookwishList);
 		model.addObject("session", session.getAttribute("user"));
 		return model;
 	}
@@ -75,12 +94,15 @@ public class UserController {
 	@RequestMapping(value="/loginUser", method=RequestMethod.POST)
 	public ModelAndView loginUser(@ModelAttribute("user") User user, HttpSession session){
 		User result = null;
+		List<BookWishList> bookwishList = null;
 		ModelAndView model = new ModelAndView();
 		try {
 		   result = userService.loginUser(user);
 		   if(result != null){
 		   model.setViewName("userProfile");
 		   session.setAttribute("user", result);
+		   bookwishList = bookService.getBookListByUserId(result.getId());
+		   model.addObject("bookList", bookwishList);
 		   model.addObject("session", session.getAttribute("user"));
 		   }
 		   else{
@@ -90,6 +112,7 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		if(result != null)
 			return model;
 		else
@@ -111,6 +134,16 @@ public class UserController {
 	@RequestMapping(value="/userProfile", method=RequestMethod.GET)
 	public ModelAndView loadUserProfile(@ModelAttribute("user") User user, ModelAndView model, HttpSession session){
 		model.setViewName("userProfile");
+		User userId = (User) session.getAttribute("user");
+		List <BookWishList> bookwishList = null;
+		try {
+			if(userId != null){
+				 bookwishList = bookService.getBookListByUserId(userId.getId());
+				 model.addObject("bookList", bookwishList);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addObject("session", session.getAttribute("user"));
 		return model;
 	}

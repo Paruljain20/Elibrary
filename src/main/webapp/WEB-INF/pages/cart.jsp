@@ -73,13 +73,13 @@ function paymentPortal(){
 	$.ajax({
 		 type:"post",
 		 url : "pay",
-		 success : function(response) {
-			 console.log("response" +response);
-			 response.header("Access-Control-Allow-Origin", "http://localhost:8080");
-			 response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-			 next();
+		 success : function(response, status) {
+			 console.log("response" + response.redirect_url);
+		            // data.redirect contains the string URL to redirect to
+		           // window.location = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-6T3221416H9140135";
 			},
 		error : function(response){
+			console.log("error");
 		}
 		});
 }
