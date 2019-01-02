@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.app.elib.paypal.config.PaypalPaymentIntent;
 import com.app.elib.paypal.config.PaypalPaymentMethod;
@@ -16,7 +17,7 @@ import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
-@Controller
+@RestController
 public class RestGatewayController {
 
 	/*@RequestMapping(value = "/payment", method = RequestMethod.GET)
@@ -34,7 +35,7 @@ public class RestGatewayController {
 	@Autowired
 	private PaypalService paypalService;
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/pay")
+	@RequestMapping(method = RequestMethod.GET, value = "/pay")
 	public JSONObject pay(HttpServletRequest request){
 		String cancelUrl = com.app.elib.utils.URLUtils.getBaseURl(request) + "/" + PAYPAL_CANCEL_URL;
 		String successUrl = com.app.elib.utils.URLUtils.getBaseURl(request) + "/" + PAYPAL_SUCCESS_URL;

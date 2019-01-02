@@ -71,12 +71,12 @@ function removeToWishList(ebid){
 
 function paymentPortal(){
 	$.ajax({
-		 type:"post",
-		 url : "pay",
-		 success : function(response, status) {
-			 console.log("response" + response.redirect_url);
-		            // data.redirect contains the string URL to redirect to
-		           // window.location = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-6T3221416H9140135";
+	     type:"GET",
+		 url :"pay",
+		 dataType: "json",
+		 success : function(data) {
+			 console.log("response" + data.redirect_url);
+		            window.location = data.redirect_url;
 			},
 		error : function(response){
 			console.log("error");
