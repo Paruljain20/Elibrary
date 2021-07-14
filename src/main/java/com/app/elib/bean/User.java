@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
@@ -19,6 +21,8 @@ public class User {
 	@JsonView
 	private String email;
 	private String password;
+	
+	@Value("false")
 	private boolean isLibrarian;
 	public int getId() {
 		return id;
