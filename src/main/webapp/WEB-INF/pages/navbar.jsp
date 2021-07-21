@@ -21,12 +21,15 @@
     <ul class="nav navbar-nav">
       <li><a href="/Elibrary">Home</a></li>
       <li><c:if test="${session != null}">
-      <a href="mybook.jsp">My Books</a>
+      <a href="<%=request.getContextPath()%>/loadBooks/myBooks">My Books</a>
       </c:if>
       </li>
-      <li><a href="<%=request.getContextPath()%>/loadBooks/1">Browse</a></li>
+      <li>
+      <a href="<%=request.getContextPath()%>/loadBooks/1">Browse</a></li>
+      <c:if test="${session == null}">
       <li><a href="<%=request.getContextPath()%>/loginForm">Sign In</a></li>
       <li><a href="<%=request.getContextPath()%>/registerUser">Sign Up</a></li>
+      </c:if>
     </ul>
     <form class="navbar-form navbar-left" action="/action_page.php">
       <div class="input-group">

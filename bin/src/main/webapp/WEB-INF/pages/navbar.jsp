@@ -5,7 +5,7 @@
     </div>
     <ul class="nav navbar-nav">
       <li><a href="/MavenElibrary/">Home</a></li>
-      <li><a href="mybook.jsp">My Books</a></li>
+      <li><a href="/myBooks">My Books</a></li>
       <li><a href="index.jsp">Browse</a></li>
       <li><a href="loginForm">Log In</a></li>
       <li><a href="registerUser">Sign Up</a></li>

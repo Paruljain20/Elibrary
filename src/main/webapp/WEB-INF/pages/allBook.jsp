@@ -37,12 +37,13 @@
 							 <input  class="btn btn-success" id="wishlist" type="button"
 							  value="Add To Cart" onclick="addToWishList(${list.get(i-1).getEbid()})" />
 							  <input class="btn btn-warning" id="payNow" type="button" value="Buy Now"/>
-					<%-- <button class="btn btn-primary" type="submit" name="wishlist"
-						id="wishlist" onclick="addToWishList(${list.get(i-1).getEbid()})" value="Add to wish list"></button> --%>
+				
 						</div>
 					</div>
 				</div>
 			</c:forEach>
+			
+			<%-- List of books --%>
 			<c:if test="${list.size() <= 0}">
 			<div class="panel panel-primary">
 			<div class="panel-heading">Book</div>
@@ -57,9 +58,10 @@
 			</c:if>
 		</div>
 		<div>
-		<c:if test="${listOfAllBook.size() > 0}">
+		<c:if test="${listOfAllBook.size() >= 3 }">
 		<!-- Pagination links in spring mvc. -->    
-		<c:forEach begin="1" end="${listOfAllBook.size()%2 == 0 ? listOfAllBook.size()/2 : (listOfAllBook.size()+1)/ 2}" var="j" step="1">       
+		<c:forEach begin="1" end="${listOfAllBook.size()%3 == 0 ? listOfAllBook.size()/3 : ((listOfAllBook.size()+1)%3==0 ? 
+		(listOfAllBook.size()+1)/3 : (listOfAllBook.size()+2)/3)}" var="j" step="1">       
               <ul class="pagination pagination-sm">
                 <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/loadBooks/${j}">${j}</a></li>
                 </ul>

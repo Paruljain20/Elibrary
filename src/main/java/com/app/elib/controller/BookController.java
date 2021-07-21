@@ -63,13 +63,13 @@ public class BookController {
 			e.printStackTrace();
 		}
 		if (result != null)
-			return new ModelAndView("redirect:/loadBooks");
+			return new ModelAndView("redirect:/loadBooks/1");
 		else
 			model.setViewName("addbook");
 		return model;
 	}
 
-	/*@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/loadBooks")
 	public ModelAndView loadBookList(ModelAndView model, HttpSession session) throws Exception {
 		List<Book> listOfBook = null;
@@ -85,9 +85,9 @@ public class BookController {
 		model.addObject("session", session.getAttribute("user"));
 		model.setViewName("allBook");
 		return model;
-	}*/
+	}
 	
-	@RequestMapping(value = "/myBooks")
+	@RequestMapping(value = "/loadBooks/myBooks")
 	public ModelAndView loadMyBooks(ModelAndView model, HttpSession session) throws Exception {
 		List<Book> listOfBook = null;
 		List<Category> listOfBookCat = null;
@@ -106,7 +106,7 @@ public class BookController {
 	}
 	
 
-	@RequestMapping(value = "/addBookToWishList", method = RequestMethod.GET)
+	@RequestMapping(value = "/loadBooks/addBookToWishList", method = RequestMethod.GET)
 	public ResponseEntity<String> addBookToWishList(@RequestParam(value = "ebid") int id, HttpSession session) {
 		try {
 			User user = (User) session.getAttribute("user");

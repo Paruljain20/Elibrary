@@ -28,7 +28,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book save(Book book, MultipartFile file) throws Exception {
-		book.setEbook(context.getRealPath("/WEB-INF/books/")+file.getOriginalFilename());
+		book.setEbook("C:\\my-projects\\Elibrary\\src\\main\\webapp\\WEB-INF\\books"+file.getOriginalFilename());
 		bookDao.saveBook(book);
 		String result = this.fileUpload(file);
 		if(result  == "Success")
@@ -44,7 +44,7 @@ public class BookServiceImpl implements BookService {
 			try {
 				 BufferedOutputStream outputStream = new BufferedOutputStream(
 			               new FileOutputStream(
-			                     new File(context.getRealPath("/WEB-INF/books"), file.getOriginalFilename())));
+			                     new File("C:\\my-projects\\Elibrary\\src\\main\\webapp\\WEB-INF\\books", file.getOriginalFilename())));
 			         outputStream.write(file.getBytes());
 			         outputStream.flush();
 			         outputStream.close();
