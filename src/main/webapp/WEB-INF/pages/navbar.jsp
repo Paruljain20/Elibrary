@@ -48,7 +48,7 @@
     </div>
      <ul class="nav navbar-nav">
       <li><c:if test="${session != null}">
-      <a href="logout">Sign Out</a>
+      <a href="<%=request.getContextPath()%>/logout">Sign Out</a>
       </c:if>
       </li>
      </ul>

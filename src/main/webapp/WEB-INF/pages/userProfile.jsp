@@ -1,9 +1,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="com.app.elib.bean.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Bootstrap Example</title>
+<title>Elibrary</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -24,16 +25,15 @@
 User user=(User)session.getAttribute("user");
 out.print(user.getName().toUpperCase());
 %>
-				<!-- <input class="btn" type="button" value="Sign Out"
-					onclick="getlogout()" style="float: right; padding: 2px 12px;" /> -->
-			</div>
+			</div>	
 			<div class="panel-body">
+			<c:if test="${user.isLibrarian()}">
 				<form action="addBook" method="get">
 					<button class="btn btn-primary" type="submit" name="abook"
 						id="abook">Add Book</button>
 				</form>
-			</div>
-			
+			</c:if>
+		 </div>
 		</div>
 	</div>
 

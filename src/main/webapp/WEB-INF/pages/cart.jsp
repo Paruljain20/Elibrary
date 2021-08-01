@@ -49,38 +49,43 @@
 			</c:forEach>
 		</div>
 		<c:if test="${bookList.size() > 0}">
-		<input class="btn btn-warning" id="payNow" type="button" value="Continue" onclick="paymentPortal()"/>
+		<div id="smart-button-container">
+      <div style="text-align: center;">
+        <div id="paypal-button-container"></div>
+      </div>
+    </div>
 	    </c:if>
 	</div>
 
 </body>
-<script type="text/javascript">
-function removeToWishList(ebid){
-	
-	$.ajax({
-	 type:"get",
-	 url : "removeToWishList",
-	 data : "ebid="+ebid,
-	 success : function(response) {
-		 location.reload();
-		},
-	error : function(){
-	}
-	});
-}
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+  <script>
+    function initPayPalButton() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+          
+        },
 
-function paymentPortal(){
-	$.ajax({
-	     type:"GET",
-		 url :"pay",
-		 dataType: "json",
-		 success : function(data) {
-			 console.log("response" + data.redirect_url);
-		            window.location = data.redirect_url;
-			},
-		error : function(response){
-			console.log("error");
-		}
-		});
-}
-</script>
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{"amount":{"currency_code":"USD","value":1}}]
+          });
+        },
+
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+        },
+
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
+    }
+    initPayPalButton();
+  </script>

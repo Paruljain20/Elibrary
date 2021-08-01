@@ -34,7 +34,7 @@
 								<li><label class="control-label">Detail</label> : ${list.get(i-1).getDetail()}</li>
 								<li><label class="control-label">Price</label> : $${list.get(i-1).getPrice()}</li>
 							</ul>
-							 <input  class="btn btn-success" id="wishlist" type="button"
+							 <input  class="btn btn-success" id="addToCart" type="button"
 							  value="Add To Cart" onclick="addToWishList(${list.get(i-1).getEbid()})" />
 							  <input class="btn btn-warning" id="payNow" type="button" value="Buy Now"/>
 				
@@ -58,10 +58,9 @@
 			</c:if>
 		</div>
 		<div>
-		<c:if test="${listOfAllBook.size() >= 3 }">
+		<c:if test="${listOfAllBook.size() > 2 }">
 		<!-- Pagination links in spring mvc. -->    
-		<c:forEach begin="1" end="${listOfAllBook.size()%3 == 0 ? listOfAllBook.size()/3 : ((listOfAllBook.size()+1)%3==0 ? 
-		(listOfAllBook.size()+1)/3 : (listOfAllBook.size()+2)/3)}" var="j" step="1">       
+		<c:forEach begin="1" end="${listOfAllBook.size()%2 == 0 ? listOfAllBook.size()/2 : (listOfAllBook.size()+1)/2}" var="j" step="1">       
               <ul class="pagination pagination-sm">
                 <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/loadBooks/${j}">${j}</a></li>
                 </ul>
@@ -79,12 +78,12 @@ function addToWishList(ebid){
 	 url : "addBookToWishList",
 	 data : "ebid="+ebid,
 	 success : function(response) {
-		 console.log("response+"+response);
+		 console.log("response" + response);
 		 if(response){
 		 alert(response);
 		 }else{
-		 $("#wishlist").prop("value","Added to Cart");
-		 $("#wishlist").prop( "disabled", true );
+		 $("#addToCart").prop("value","Added to Cart");
+		 $("#addToCart").prop( "disabled", true );
 		 }
 		},
 	error : function(){

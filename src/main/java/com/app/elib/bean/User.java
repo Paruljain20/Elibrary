@@ -24,6 +24,7 @@ public class User {
 	
 	@Value("false")
 	private boolean isLibrarian;
+	
 	public int getId() {
 		return id;
 	}

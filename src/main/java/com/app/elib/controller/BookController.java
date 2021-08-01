@@ -44,8 +44,9 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/addBook", method = RequestMethod.GET)
-	public ModelAndView addBookForm(@ModelAttribute("book") Book book, ModelAndView model) throws Exception {
+	public ModelAndView addBookForm(@ModelAttribute("book") Book book, ModelAndView model, HttpSession httpSession) throws Exception {
 		List bookCat = bookService.getBookCategory();
+		model.addObject("session", httpSession.getAttribute("user"));
 		model.addObject("catList", bookCat);
 		model.setViewName("addbook");
 		return model;

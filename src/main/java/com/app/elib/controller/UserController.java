@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.app.elib.bean.Book;
 import com.app.elib.bean.BookWishList;
+import com.app.elib.bean.Category;
 import com.app.elib.bean.User;
 import com.app.elib.service.BookService;
 import com.app.elib.service.EmailService;
@@ -91,32 +92,35 @@ public class UserController {
 	}
 	
 	//This method is used to login process
-	@RequestMapping(value="/loginUser", method=RequestMethod.POST)
-	public ModelAndView loginUser(@ModelAttribute("user") User user, HttpSession session){
+	@RequestMapping(value = "/loginUser", method = RequestMethod.POST)
+	public ModelAndView loginUser(@ModelAttribute("user") User user, HttpSession session) {
 		User result = null;
 		List<BookWishList> bookwishList = null;
+		List<Book> listOfBook = null;
+		List<Category> listOfBookCat = null;
+
 		ModelAndView model = new ModelAndView();
 		try {
-		   result = userService.loginUser(user);
-		   if(result != null){
-		   model.setViewName("userProfile");
-		   session.setAttribute("user", result);
-		   bookwishList = bookService.getBookListByUserId(result.getId());
-		   model.addObject("bookList", bookwishList);
-		   model.addObject("session", session.getAttribute("user"));
-		   }
-		   else{
-			   model.setViewName("login");
-			   model.addObject("message", "Username or Password is wrong!!");
-		   }
+			result = userService.loginUser(user);
+			if (result != null) {
+				bookwishList = bookService.getBookListByUserId(result.getId());
+				if (result.isLibrarian()) {
+					model.addObject("bookList", bookwishList);
+					model.setViewName("userProfile");
+				} else {
+					model.setViewName("redirect:/loadBooks/1");
+				}
+				session.setAttribute("userDetail", result);
+				model.addObject("session", session.getAttribute("user"));
+			} else {
+				model.setViewName("login");
+				model.addObject("message", "Username or Password is wrong!!");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		if(result != null)
-			return model;
-		else
-			return model;
+
+		return model;
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
