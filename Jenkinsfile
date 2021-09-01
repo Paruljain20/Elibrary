@@ -1,18 +1,16 @@
 pipeline {
  agent any
   stages {
-     stage ('compile') {
-     steps {
-      echo "compile the code"
-      }
-     }
-     stage ('build') {
-      steps {
-      echo "Building application"
-       sh """
-       mvn clean install
-       """
-      }
-     }
+   stage("Build") {
+    steps {
+     sh "mvn -version"
+     sh "mvn clean install"
+    }
+   }
   }
+ post {
+  always {
+   cleanWs()
+  }
+ }
 }
