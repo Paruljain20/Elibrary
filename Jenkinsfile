@@ -3,6 +3,9 @@ pipeline {
  tools {
   maven "3.2.5"
  }
+  parameters {
+      choice(name: 'DEPLOYMENT_ENVIRONMENT', choices: ['INT', 'QA'])
+  }
   stages {
    stage("Build") {
     steps {
